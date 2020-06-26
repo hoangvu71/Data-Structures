@@ -1,3 +1,4 @@
+
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -17,20 +18,78 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        
+        # Is tree empty?
+        if self.value == None:
+            self.value = value
+        
+        # if value less than root?
+        if value < self.value:
+
+            # if left leaf is still available
+            if self.left == None:
+                self.left = BSTNode(value)
+
+            # if left leave is occuplied, call insert
+            else:
+                self.left.insert(value)
+
+        # if value more or equal to root
+        if value >= self.value:
+
+            # if right leaf is still available
+            if self.right == None:
+                self.right = BSTNode(value)
+
+            # else call insert on right leaf
+            else:
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        
+        # is the root equal to target
+        if self.value == target:
+            return True
 
+        # if left leaf not empty
+
+        elif self.left != None and target < self.value:
+                return self.left.contains(target)
+
+        # if right leaf not empty
+        elif self.right != None and target >= self.value:
+                return self.right.contains(target)
+
+        else:
+            return None
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        
+                
+        # if right leaf is not available
+        # it means self.value is the biggest value
+        if self.right == None:
+            return self.value
+        
+        # if right leaf is available
+        # call right leaf get_max()
+        else:
+            return self.right.get_max()
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # is left available?
+        fn(self.value)
+        if self.left != None:
+            self.left.for_each(fn)
+        
+        # is right available?
+        if self.right != None:
+            self.right.for_each(fn)
+
+
 
     # Part 2 -----------------------
 
@@ -59,3 +118,4 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
